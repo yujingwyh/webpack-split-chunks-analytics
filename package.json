@@ -1,0 +1,40 @@
+{
+  "name": "webpack-split-chunks",
+  "version": "1.0.0",
+  "description": "webpack分块",
+  "license": "MIT",
+  "repository": "github:yujingwyh/webpack-split-chunks",
+  "bugs": "https://github.com/yujingwyh/webpack-split-chunks/issues",
+  "keywords": [
+    "webpack",
+    "split",
+    "chunks"
+  ],
+  "author": {
+    "name": "yujingwyh",
+    "email": "yujingwyh@163.com"
+  },
+  "scripts": {
+    "build": "npx webpack --display-modules --display-chunks --progress --color"
+  },
+  "lint-staged": {
+    "**/*.{js,jsx,ts,tsx,css,less}": [
+      "prettier --write",
+      "git add"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "clean-webpack-plugin": "^3.0.0",
+    "del": "^5.1.0",
+    "shelljs": "^0.8.3",
+    "webpack": "^4.42.1",
+    "webpack-bundle-analyzer": "^3.7.0",
+    "webpack-cli": "^3.2.3"
+  }
+}

@@ -1,0 +1,11 @@
+.git
+.DS_Store
+.vscode
+.idea
+.log
+
+node_modules
+yarn.lock
+stats.json
+
+dist
