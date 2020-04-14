@@ -15,6 +15,7 @@
     "email": "yujingwyh@163.com"
   },
   "scripts": {
+    "example": "node --experimental-modules ./examples/default.mjs",
     "build": "npx webpack --display-modules --display-chunks --progress --color"
   },
   "dependencies": {},
