@@ -8,4 +8,5 @@ node_modules
 yarn.lock
 stats.json
 
+source
 dist

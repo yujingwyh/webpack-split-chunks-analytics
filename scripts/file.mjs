@@ -5,7 +5,7 @@ import config from './config.mjs'
 
 async function writeFile(writePath, data) {
   return new Promise(function (resolve, reject) {
-    fs.writeFile(path.resolve(config.dist, writePath), data, function (err,) {
+    fs.writeFile(path.resolve(config.output, writePath), data, function (err,) {
       if (err) reject(err);
 
       resolve();
@@ -14,10 +14,10 @@ async function writeFile(writePath, data) {
 }
 
 export async function initDist() {
-  await del(config.dist);
+  await del(config.output);
 
   return new Promise(async function (resolve, reject) {
-    fs.mkdir(config.dist, function (err) {
+    fs.mkdir(config.output, function (err) {
       if (err) reject(err);
 
       resolve();
@@ -94,7 +94,7 @@ export async function generateFiles(shape) {
 
 export async function generateEntry(shape) {
   const entry = shape.reduce((prev, curr) => {
-    prev[curr.name] = path.resolve(config.dist, './' + curr.name + '.js');
+    prev[curr.name] = path.resolve(config.output, './' + curr.name + '.js');
 
     return prev;
   }, {});
