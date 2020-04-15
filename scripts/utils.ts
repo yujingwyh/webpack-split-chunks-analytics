@@ -3,7 +3,7 @@ import * as path from 'path'
 //配置
 export const config = {
   //源码输出路径
-  output: path.resolve(__dirname, '../source')
+  entry: path.resolve(__dirname, '../entry')
 }
 
 //模块描述

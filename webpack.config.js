@@ -2,15 +2,15 @@ const path = require('path');
 const {CleanWebpackPlugin} = require("clean-webpack-plugin");
 const BundleAnalyzerPlugin = require("webpack-bundle-analyzer").BundleAnalyzerPlugin;
 
-const entry = require('./source/entry.json');
+const entry = require('./entry/entry.json');
 
 const webpackConfig = {
   mode: 'production',
   entry,
   output: {
-    path: path.resolve(__dirname, "./dist"),
+    path: path.resolve(__dirname, "./output"),
     filename: "[name].js",
-    publicPath: "/dist/",
+    publicPath: "/output/",
     chunkFilename: "[name].chunk.js"
   },
   module: {

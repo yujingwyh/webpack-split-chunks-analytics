@@ -6,7 +6,7 @@ import {config, FileDescribe, ShapeDescribe} from './utils'
 //写文件
 async function writeFile(writePath: string, data: any) {
   return new Promise(function (resolve, reject) {
-    fs.writeFile(path.resolve(config.output, writePath), data, function (err,) {
+    fs.writeFile(path.resolve(config.entry, writePath), data, function (err,) {
       if (err) reject(err);
 
       resolve();
@@ -14,12 +14,12 @@ async function writeFile(writePath: string, data: any) {
   })
 }
 
-//初始dist目录
-export async function initDist() {
-  await del(config.output);
+//初始entry目录
+export async function initEntry() {
+  await del(config.entry);
 
   return new Promise(async function (resolve, reject) {
-    fs.mkdir(config.output, function (err) {
+    fs.mkdir(config.entry, function (err) {
       if (err) reject(err);
 
       resolve();
@@ -102,7 +102,7 @@ export async function generateFiles(shape: ShapeDescribe) {
 //生成入口文件
 export async function generateEntry(shape: ShapeDescribe) {
   const entry = shape.reduce((prev, curr) => {
-    prev[curr.name] = path.resolve(config.output, './' + curr.name + '.js');
+    prev[curr.name] = path.resolve(config.entry, './' + curr.name + '.js');
 
     return prev;
   }, {} as { [index: string]: string });

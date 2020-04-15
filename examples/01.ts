@@ -1,6 +1,6 @@
-import parse from '../scripts/main'
+import analytics from '../scripts/main'
 
-parse([
+analytics([
   {
     name:'a',
     syncImport:[
@@ -11,5 +11,8 @@ parse([
       {name:'b'},
       {name:'d'}
     ]
+  },
+  {
+    name:'e'
   }
-])
+]);

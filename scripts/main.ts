@@ -1,4 +1,4 @@
-import {generateEntry, generateFiles, initDist} from "./file";
+import {generateEntry, generateFiles, initEntry} from "./file";
 import {build} from "./compile";
 import {ShapeDescribe} from "./utils";
 
@@ -26,7 +26,7 @@ function validationShape(shape: ShapeDescribe) {
 //入口
 export default async function main(shape: ShapeDescribe) {
   validationShape(shape);
-  await initDist();
+  await initEntry();
   await generateFiles(shape);
   await generateEntry(shape);
 
