@@ -1,7 +1,8 @@
-import {initDist, generateFiles, generateEntry} from "./file.mjs";
-import {build} from "./compile.mjs";
+import {initDist, generateFiles, generateEntry} from "./file";
+import {build} from "./compile";
+import {ShapeDescribe} from "./utils";
 
-function validationShape(shape) {
+function validationShape(shape: ShapeDescribe) {
   if (!Array.isArray(shape)) {
     throw new Error('shape 参数不合法');
   }
@@ -21,7 +22,7 @@ function validationShape(shape) {
   });
 }
 
-export default async function main(shape) {
+export default async function main(shape: ShapeDescribe) {
   validationShape(shape);
   await initDist();
   await generateFiles(shape);

@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
+    "target": "ES6",
+    "moduleResolution": "node",
+    "strict": true,
+    "resolveJsonModule": true,
+    "lib": [
+      "ES6"
+    ],
+    "baseUrl": "./"
+  },
+  "filesGlob": [
+    "./scripts/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}

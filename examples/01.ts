@@ -1,9 +1,8 @@
-import parse from '../scripts/main.mjs'
+import parse from '../scripts/main'
 
 parse([
   {
     name:'a',
-    size:10,
     syncImport:[
       {name:'b'}
     ]

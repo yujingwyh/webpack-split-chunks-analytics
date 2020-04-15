@@ -1,2 +1,2 @@
-# webpack-split-chunks
-webpack分块测试
+# webpack-split-chunks-analytics
+webpack分块分析

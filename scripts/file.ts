@@ -1,9 +1,10 @@
-import fs from 'fs'
-import path from 'path'
-import del from 'del'
-import config from './config.mjs'
+import * as fs from 'fs'
+import * as path from 'path'
+import * as del from 'del'
+import {config, ShapeDescribe,FileDescribe} from './utils'
 
-async function writeFile(writePath, data) {
+
+async function writeFile(writePath:string, data:any) {
   return new Promise(function (resolve, reject) {
     fs.writeFile(path.resolve(config.output, writePath), data, function (err,) {
       if (err) reject(err);
@@ -25,7 +26,7 @@ export async function initDist() {
   })
 }
 
-export async function generateFiles(shape) {
+export async function generateFiles(shape: ShapeDescribe) {
   const files = getFiles(shape);
 
   for (let file of Object.values(files)) {
@@ -33,7 +34,7 @@ export async function generateFiles(shape) {
   }
 
 
-  function getFiles(options, existFiles = {}) {
+  function getFiles(options: ShapeDescribe, existFiles: { [index: string]: FileDescribe } = {}) {
     for (const option of options) {
       const existFile = existFiles[option.name] = existFiles[option.name] || {
         size: 0,
@@ -66,7 +67,7 @@ export async function generateFiles(shape) {
     return existFiles;
   }
 
-  function getContent(file) {
+  function getContent(file: FileDescribe) {
     let content = '';
 
     file.syncDepends.forEach(item => {
@@ -76,7 +77,7 @@ export async function generateFiles(shape) {
       content += `const ${item} = import('./${item}');\r`
     });
 
-    content += `export default {};`;
+    content += `export default {};\r`;
 
     if (file.size) {
       return addContentToSize(content, file.size);
@@ -84,7 +85,7 @@ export async function generateFiles(shape) {
     return content;
   }
 
-  function addContentToSize(content, size) {
+  function addContentToSize(content: string, size: number) {
     size = size * 1024 - content.length;
 
 
@@ -92,12 +93,12 @@ export async function generateFiles(shape) {
   }
 }
 
-export async function generateEntry(shape) {
+export async function generateEntry(shape: ShapeDescribe) {
   const entry = shape.reduce((prev, curr) => {
     prev[curr.name] = path.resolve(config.output, './' + curr.name + '.js');
 
     return prev;
-  }, {});
+  }, {} as { [index: string]: string });
 
   await writeFile(
     './entry.json',
