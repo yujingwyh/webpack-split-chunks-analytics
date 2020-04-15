@@ -2,6 +2,7 @@ import {generateEntry, generateFiles, initDist} from "./file";
 import {build} from "./compile";
 import {ShapeDescribe} from "./utils";
 
+//校验参数
 function validationShape(shape: ShapeDescribe) {
   if (!Array.isArray(shape)) {
     throw new Error('shape 参数不合法');
@@ -22,6 +23,7 @@ function validationShape(shape: ShapeDescribe) {
   });
 }
 
+//入口
 export default async function main(shape: ShapeDescribe) {
   validationShape(shape);
   await initDist();
