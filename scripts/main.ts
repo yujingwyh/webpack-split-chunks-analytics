@@ -1,4 +1,4 @@
-import {initDist, generateFiles, generateEntry} from "./file";
+import {generateEntry, generateFiles, initDist} from "./file";
 import {build} from "./compile";
 import {ShapeDescribe} from "./utils";
 

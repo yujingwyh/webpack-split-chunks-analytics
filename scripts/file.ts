@@ -1,10 +1,10 @@
 import * as fs from 'fs'
 import * as path from 'path'
 import * as del from 'del'
-import {config, ShapeDescribe,FileDescribe} from './utils'
+import {config, FileDescribe, ShapeDescribe} from './utils'
 
 
-async function writeFile(writePath:string, data:any) {
+async function writeFile(writePath: string, data: any) {
   return new Promise(function (resolve, reject) {
     fs.writeFile(path.resolve(config.output, writePath), data, function (err,) {
       if (err) reject(err);
@@ -68,16 +68,17 @@ export async function generateFiles(shape: ShapeDescribe) {
   }
 
   function getContent(file: FileDescribe) {
+    const variableName = file.name.replace(file.name.charAt(0), file.name.charAt(0).toUpperCase());
     let content = '';
 
     file.syncDepends.forEach(item => {
-      content += `import ${item} from './${item}';\r`
+      content += `import sync${variableName} from './${item}';\r`
     });
     file.asyncDepends.forEach(item => {
-      content += `const ${item} = import('./${item}');\r`
+      content += `const async${variableName} = import('./${item}');\r`
     });
 
-    content += `export default {};\r`;
+    content += `export default '${file.name}';\r`;
 
     if (file.size) {
       return addContentToSize(content, file.size);
