@@ -68,14 +68,13 @@ export async function generateFiles(shape: ShapeDescribe) {
   }
 
   function getContent(file: FileDescribe) {
-    const variableName = file.name.replace(file.name.charAt(0), file.name.charAt(0).toUpperCase());
     let content = '';
 
     file.syncDepends.forEach(item => {
-      content += `import sync${variableName} from './${item}';\r`
+      content += `import sync${getVariableName(item)} from './${item}';\r`
     });
     file.asyncDepends.forEach(item => {
-      content += `const async${variableName} = import('./${item}');\r`
+      content += `const async${getVariableName(item)} = import('./${item}');\r`
     });
 
     content += `export default '${file.name}';\r`;
@@ -91,6 +90,9 @@ export async function generateFiles(shape: ShapeDescribe) {
 
 
     return size > 0 ? content + ' '.repeat(size) : content;
+  }
+  function getVariableName(name:string) {
+    return name.replace(name.charAt(0), name.charAt(0).toUpperCase());
   }
 }
 
