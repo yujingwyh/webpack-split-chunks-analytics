@@ -1,21 +1,11 @@
 import * as fs from 'fs'
 import * as path from 'path'
 import * as del from 'del'
-import {config, FileDescribe, ShapeDescribe} from './utils'
+import {config, FileDescribe, ModuleDescribe, OptionsDescribe, writeFile} from './utils'
 
-//写文件
-async function writeFile(writePath: string, data: any) {
-  return new Promise(function (resolve, reject) {
-    fs.writeFile(path.resolve(config.entry, writePath), data, function (err,) {
-      if (err) reject(err);
-
-      resolve();
-    })
-  })
-}
 
 //初始entry目录
-export async function initEntry() {
+export async function initEntryDirectory() {
   await del(config.entry);
 
   return new Promise(async function (resolve, reject) {
@@ -27,16 +17,16 @@ export async function initEntry() {
   })
 }
 
-//生成源码文件
-export async function generateFiles(shape: ShapeDescribe) {
-  const files = getFiles(shape);
+//生成打包文件
+export async function generatePackFiles(modulesScheme: ModuleDescribe[]) {
+  const files = getFiles(modulesScheme);
 
   for (let file of Object.values(files)) {
     await writeFile(file.name + '.js', getContent(file))
   }
 
 
-  function getFiles(options: ShapeDescribe, existFiles: { [index: string]: FileDescribe } = {}) {
+  function getFiles(options: ModuleDescribe[], existFiles: { [index: string]: FileDescribe } = {}) {
     for (const option of options) {
       const existFile = existFiles[option.name] = existFiles[option.name] || {
         size: 0,
@@ -73,10 +63,10 @@ export async function generateFiles(shape: ShapeDescribe) {
     let content = '';
 
     file.syncDepends.forEach(item => {
-      content += `import sync${getVariableName(item)} from './${item}';\r`
+      content += `import ${getVariableName('sync-' + item)} from './${item}';\r`
     });
     file.asyncDepends.forEach(item => {
-      content += `const async${getVariableName(item)} = import('./${item}');\r`
+      content += `const ${getVariableName('async-' + item)} = import(/* webpackChunkName: "${item}" */ './${item}');\r`
     });
 
     content += `export default '${file.name}';\r`;
@@ -94,21 +84,28 @@ export async function generateFiles(shape: ShapeDescribe) {
     return size > 0 ? content + ' '.repeat(size) : content;
   }
 
-  function getVariableName(name:string) {
-    return name.replace(name.charAt(0), name.charAt(0).toUpperCase());
+  function getVariableName(name: string) {
+    return name
+      .replace(/-[\w$]/g, word => word.charAt(1).toUpperCase())
+      .replace(/[^\w$]/g, '');
   }
 }
 
-//生成入口文件
-export async function generateEntry(shape: ShapeDescribe) {
-  const entry = shape.reduce((prev, curr) => {
+//生成打包配置
+export async function generatePackConfig(options: OptionsDescribe) {
+  const entryConfig = options.modulesScheme.reduce((prev, curr) => {
     prev[curr.name] = path.resolve(config.entry, './' + curr.name + '.js');
 
     return prev;
   }, {} as { [index: string]: string });
 
+  const packConfig = {
+    entry: entryConfig,
+    splitChunks: options.splitChunks || {}
+  }
+
   await writeFile(
-    './entry.json',
-    JSON.stringify(entry)
+    './config.json',
+    JSON.stringify(packConfig)
   );
 }

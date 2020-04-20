@@ -1,34 +1,34 @@
-import {generateEntry, generateFiles, initEntry} from "./file";
-import {build} from "./compile";
-import {ShapeDescribe} from "./utils";
+import {generatePackConfig, generatePackFiles, initEntryDirectory} from "./file";
+import {build} from "./pack";
+import {ModuleDescribe, OptionsDescribe} from "./utils";
 
-//校验参数
-function validationShape(shape: ShapeDescribe) {
-  if (!Array.isArray(shape)) {
-    throw new Error('shape 参数不合法');
+//校验入口参数
+function validateModulesScheme(modulesScheme: ModuleDescribe[]) {
+  if (!Array.isArray(modulesScheme)) {
+    throw new Error('entry 参数不合法');
   }
-  shape.forEach(item => {
+  modulesScheme.forEach(item => {
     if (!item.name || typeof item.name !== 'string') {
-      throw new Error('shape 参数不合法')
+      throw new Error('entry 参数不合法')
     }
     if (item.size && typeof item.size !== "number") {
-      throw new Error('shape 参数不合法')
+      throw new Error('entry 参数不合法')
     }
     if (item.syncImport) {
-      validationShape(item.syncImport);
+      validateModulesScheme(item.syncImport);
     }
     if (item.asyncImport) {
-      validationShape(item.asyncImport);
+      validateModulesScheme(item.asyncImport);
     }
   });
 }
 
 //入口
-export default async function main(shape: ShapeDescribe) {
-  validationShape(shape);
-  await initEntry();
-  await generateFiles(shape);
-  await generateEntry(shape);
+export default async function main(options: OptionsDescribe) {
+  validateModulesScheme(options.modulesScheme);
+  await initEntryDirectory();
+  await generatePackConfig(options);
+  await generatePackFiles(options.modulesScheme);
 
   build();
 }

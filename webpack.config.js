@@ -2,11 +2,11 @@ const path = require('path');
 const {CleanWebpackPlugin} = require("clean-webpack-plugin");
 const BundleAnalyzerPlugin = require("webpack-bundle-analyzer").BundleAnalyzerPlugin;
 
-const entry = require('./entry/entry.json');
+const config = require('./entry/config.json');
 
 const webpackConfig = {
   mode: 'production',
-  entry,
+  entry: config.entry,
   output: {
     path: path.resolve(__dirname, "./output"),
     filename: "[name].js",
@@ -24,7 +24,10 @@ const webpackConfig = {
     new CleanWebpackPlugin(),
   ],
   optimization: {
-    minimize: false
+    minimize: false,
+    splitChunks: {
+      ...config.splitChunks
+    }
   }
 };
 module.exports = webpackConfig;
