@@ -1,7 +1,6 @@
 import * as fs from 'fs'
-import * as path from 'path'
 import * as del from 'del'
-import {config, FileDescribe, ModuleDescribe, OptionsDescribe, writeFile} from './utils'
+import {config, FileDescribe, ModuleDescribe, writeFile} from './utils'
 
 
 //初始entry目录
@@ -89,23 +88,4 @@ export async function generatePackFiles(modulesScheme: ModuleDescribe[]) {
       .replace(/-[\w$]/g, word => word.charAt(1).toUpperCase())
       .replace(/[^\w$]/g, '');
   }
-}
-
-//生成打包配置
-export async function generatePackConfig(options: OptionsDescribe) {
-  const entryConfig = options.modulesScheme.reduce((prev, curr) => {
-    prev[curr.name] = path.resolve(config.entry, './' + curr.name + '.js');
-
-    return prev;
-  }, {} as { [index: string]: string });
-
-  const packConfig = {
-    entry: entryConfig,
-    splitChunks: options.splitChunks || {}
-  }
-
-  await writeFile(
-    './config.json',
-    JSON.stringify(packConfig)
-  );
 }

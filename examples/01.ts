@@ -1,38 +1,40 @@
 import analytics from '../scripts/main'
 
 analytics({
-  modulesScheme:[
+  modulesScheme: [
     {
-      name:'app-a',
-      syncImport:[
-        {name:'lib-p'},
+      name: 'app-a',
+      syncImport: [
+        {name: 'lib-p'},
       ],
-      asyncImport:[
+      asyncImport: [
         {
-          name:'page-h',
-          syncImport:[{
-            name:'lib-p',
-          },{
-            name:'lib-o-hi'
+          name: 'page-h',
+          syncImport: [{
+            name: 'lib-p',
+          }, {
+            name: 'lib-o-hi'
           }]
         },
         {
-          name:'page-i',
-          syncImport:[{
-            name:'lib-p'
-          },{
-            name:'lib-o-hi'
+          name: 'page-i',
+          syncImport: [{
+            name: 'lib-p'
+          }, {
+            name: 'lib-o-hi'
           }]
         },
-        {name:'page-j', syncImport:[{
-            name:'lib-p'
-          },{
-            name:'lib-q-big'
-          }]}
+        {
+          name: 'page-j', syncImport: [{
+            name: 'lib-p'
+          }, {
+            name: 'lib-q-big'
+          }]
+        }
       ]
     },
     {
-      name:'app-b'
+      name: 'app-b'
     }
   ]
 });

@@ -20,16 +20,14 @@
     "build": "npx webpack --display-chunks --progress --color"
   },
   "dependencies": {
-    "@types/shelljs": "^0.8.7",
     "@types/webpack": "^4.41.12",
+    "@types/webpack-bundle-analyzer": "^2.13.3",
     "clean-webpack-plugin": "^3.0.0",
     "del": "^5.1.0",
-    "shelljs": "^0.8.3",
     "ts-node": "^8.6.2",
     "typescript": "^3.8.3",
     "webpack": "^4.42.1",
-    "webpack-bundle-analyzer": "^3.7.0",
-    "webpack-cli": "^3.2.3"
+    "webpack-bundle-analyzer": "^3.7.0"
   },
   "devDependencies": {}
 }

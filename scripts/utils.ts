@@ -29,7 +29,9 @@ export interface OptionsDescribe {
 //配置
 export const config = {
   //打包入口路径
-  entry: path.resolve(__dirname, '../entry')
+  entry: path.resolve(__dirname, '../entry'),
+  //打包输出路径
+  output: path.resolve(__dirname, '../output'),
 }
 
 //写文件

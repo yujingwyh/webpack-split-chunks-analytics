@@ -1,4 +1,4 @@
-import {generatePackConfig, generatePackFiles, initEntryDirectory} from "./file";
+import {generatePackFiles, initEntryDirectory} from "./file";
 import {build} from "./pack";
 import {ModuleDescribe, OptionsDescribe} from "./utils";
 
@@ -24,11 +24,10 @@ function validateModulesScheme(modulesScheme: ModuleDescribe[]) {
 }
 
 //入口
-export default async function main(options: OptionsDescribe) {
+export default async function analytics(options: OptionsDescribe) {
   validateModulesScheme(options.modulesScheme);
   await initEntryDirectory();
-  await generatePackConfig(options);
   await generatePackFiles(options.modulesScheme);
 
-  build();
+  build(options);
 }
