@@ -16,8 +16,7 @@
     "email": "yujingwyh@163.com"
   },
   "scripts": {
-    "example": "ts-node examples/01.ts",
-    "build": "npx webpack --display-chunks --progress --color"
+    "example": "ts-node examples/01.ts"
   },
   "dependencies": {
     "@types/webpack": "^4.41.12",

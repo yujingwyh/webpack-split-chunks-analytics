@@ -39,6 +39,11 @@ function getWebpackConfig(options: OptionsDescribe) {
       ],
       optimization: {
         minimize: false
+      },
+      stats:{
+        chunks:true,
+        chunkModules:true,
+        modules:false
       }
     }
   }
@@ -50,5 +55,6 @@ export function build(options: OptionsDescribe) {
     if (err || stats.hasErrors()) {
       return console.error(err);
     }
+    console.log(stats.toString({colors:true}))
   })
 }
