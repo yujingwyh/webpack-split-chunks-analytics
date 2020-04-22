@@ -7,13 +7,12 @@ import {config, OptionsDescribe} from "./utils";
 //获取配置
 function getWebpackConfig(options: OptionsDescribe) {
   const webpackConfig = getDefaultConfig();
-  const entryConfig = options.modulesScheme.reduce((prev, curr) => {
+
+  webpackConfig.entry = options.modulesScheme.reduce((prev, curr) => {
     prev[curr.name] = path.resolve(config.entry, './' + curr.name + '.js');
 
     return prev;
   }, {} as { [index: string]: string });
-
-  webpackConfig.entry = entryConfig;
   (webpackConfig.optimization as webpack.Options.Optimization).splitChunks = options.splitChunks || {};
 
   return webpackConfig;
