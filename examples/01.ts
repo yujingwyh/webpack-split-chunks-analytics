@@ -1,7 +1,7 @@
 import analytics from '../scripts/main'
 
 analytics({
-  modulesScheme: [
+  modulesStructure: [
     {
       name: 'app-a',
       syncImport: [{name: 'lib-o'},],

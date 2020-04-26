@@ -22,7 +22,7 @@ export interface ModuleDescribe {
 
 //选项描述
 export interface OptionsDescribe {
-  modulesScheme: ModuleDescribe[],
+  modulesStructure: ModuleDescribe[],
   splitChunks?: SplitChunksOptions
 }
 

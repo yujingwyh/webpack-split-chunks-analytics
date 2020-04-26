@@ -25,9 +25,9 @@ function validateModulesScheme(modulesScheme: ModuleDescribe[]) {
 
 //入口
 export default async function analytics(options: OptionsDescribe) {
-  validateModulesScheme(options.modulesScheme);
+  validateModulesScheme(options.modulesStructure);
   await initEntryDirectory();
-  await generatePackFiles(options.modulesScheme);
+  await generatePackFiles(options.modulesStructure);
 
   build(options);
 }

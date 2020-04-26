@@ -8,7 +8,7 @@ import {config, OptionsDescribe} from "./utils";
 function getWebpackConfig(options: OptionsDescribe) {
   const webpackConfig = getDefaultConfig();
 
-  webpackConfig.entry = options.modulesScheme.reduce((prev, curr) => {
+  webpackConfig.entry = options.modulesStructure.reduce((prev, curr) => {
     prev[curr.name] = path.resolve(config.entry, './' + curr.name + '.js');
 
     return prev;

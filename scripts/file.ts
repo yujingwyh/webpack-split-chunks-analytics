@@ -17,8 +17,8 @@ export async function initEntryDirectory() {
 }
 
 //生成打包文件
-export async function generatePackFiles(modulesScheme: ModuleDescribe[]) {
-  const files = getFiles(modulesScheme);
+export async function generatePackFiles(modulesStructure: ModuleDescribe[]) {
+  const files = getFiles(modulesStructure);
 
   for (let file of Object.values(files)) {
     await writeFile(file.name + '.js', getContent(file))
