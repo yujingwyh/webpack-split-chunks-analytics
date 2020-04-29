@@ -20,5 +20,17 @@ analytics({
       name: 'app-b',
       syncImport: [{name: 'lib-p'},]
     }
-  ]
+  ],
+  splitChunks:{
+    chunks: "all",
+    maxSize:400,
+    cacheGroups:{
+      default:false,
+      hi:{
+        test:/hi/,
+        name:'test'
+      }
+
+    }
+  }
 });

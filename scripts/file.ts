@@ -71,16 +71,23 @@ export async function generatePackFiles(modulesStructure: ModuleDescribe[]) {
     content += `export default '${file.name}';\r`;
 
     if (file.size) {
-      return addContentToSize(content, file.size);
+      return addContentToSize(content, file.size,file.name);
     }
     return content;
   }
 
-  function addContentToSize(content: string, size: number) {
-    size = size * 1024 - content.length;
+  function addContentToSize(content: string, size: number,name:string) {
+    size = size - content.length - 4;
 
 
-    return size > 0 ? content + ' '.repeat(size) : content;
+    if(size > 0){
+      return content + '/*' + 'e'.repeat(size) + '*/'
+    }
+    else if(size < 0){
+      throw new Error(`${name} 文件设置的尺寸过小`)
+    }
+
+    return  content;
   }
 
   function getVariableName(name: string) {
