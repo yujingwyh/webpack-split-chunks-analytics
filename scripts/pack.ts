@@ -49,7 +49,7 @@ function getWebpackConfig(options: OptionsDescribe) {
 }
 
 //webpack打包
-export function build(options: OptionsDescribe) {
+export function pack(options: OptionsDescribe) {
   webpack(getWebpackConfig(options), (err: Error, stats: webpack.Stats) => {
     if (err || stats.hasErrors()) {
       return console.error(err);

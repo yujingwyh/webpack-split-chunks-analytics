@@ -1,26 +1,26 @@
-import analytics from '../scripts/main'
+import build from '../scripts/main'
 
-analytics({
+build({
   modulesStructure: [
     {
       name: 'one',
-      syncImport: [{name: 'A'},{name:"D"}],
       asyncImport: [{
-          name: 'B',
-          syncImport: [{name: 'D',}, {name: 'F'}]
+          name: 'A',
+          syncImport: [{name: 'C',}, {name: 'D'}]
         },{
-          name: 'C',
-          syncImport: [{name: 'F'}]
+          name: 'B',
+          syncImport: [{name: 'C'}]
         }
       ]
-    },{
-      name: 'two',
-      syncImport: [{name: 'A'},]
     }
   ],
   splitChunks:{
+    minSize:1,
     cacheGroups:{
-      "default":false
+      "default":false,
+      "common":{
+        test:/C/
+      }
     }
   }
 });

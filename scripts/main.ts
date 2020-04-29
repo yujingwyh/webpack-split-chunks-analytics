@@ -1,5 +1,5 @@
 import {generatePackFiles, initEntryDirectory} from "./file";
-import {build} from "./pack";
+import {pack} from "./pack";
 import {ModuleDescribe, OptionsDescribe} from "./utils";
 
 //校验入口参数
@@ -24,10 +24,10 @@ function validateModulesScheme(modulesScheme: ModuleDescribe[]) {
 }
 
 //入口
-export default async function analytics(options: OptionsDescribe) {
+export default async function build(options: OptionsDescribe) {
   validateModulesScheme(options.modulesStructure);
   await initEntryDirectory();
   await generatePackFiles(options.modulesStructure);
 
-  build(options);
+  pack(options);
 }

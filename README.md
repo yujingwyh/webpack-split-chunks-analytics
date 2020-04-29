@@ -1,6 +1,5 @@
 # webpack-split-chunks-analytics
-
-[webpack分块分析](https://zhuanlan.zhihu.com/p/113751146)
+webpack分块分析
 
 ## 安装
 
@@ -8,31 +7,75 @@
 `npm install`
 
 运行示例 <br />
-`ts-node examples/01.ts`
+`npx ts-node ./examples/01.ts`
 
-## 示例
+## 使用
 
-比如两个入口文件a和e文件，其中a文件中引入了b和c文件，并且动态引入了b和d文件
+配置文件模块和webpack的分块策略，然后会打印打包后的模块分布
+
+示例：
 
 ```ts
-import analytics from './scripts/main'
+import build from './scripts/main'
 
-analytics([
-  {
-    name:'a',
-    syncImport:[
-      {name:'b'},
-      {name:'c'}
-    ],
-    asyncImport:[
-      {name:'b'},
-      {name:'d'}
-    ]
-  },
-  {
-    name:'e'
+build({
+  modulesStructure: [
+    {
+      name: 'one',
+      asyncImport: [{
+          name: 'A',
+          syncImport: [{name: 'C',}, {name: 'D'}]
+        },{
+          name: 'B',
+          syncImport: [{name: 'C'}]
+        }
+      ]
+    }
+  ],
+  splitChunks:{
+    minSize:1,
+    cacheGroups:{
+      "default":false,
+      "common":{
+        test:/C/
+      }
+    }
   }
-]);
+});
 ```
 
-运行后在浏览器中的截图为
+![截图](screen.png)
+
+## API
+
+### build(options)
+
+
+#### options
+
+```ts
+interface ModuleDescribe {
+  name: string,
+  size?: number,
+  syncImport?: ModuleDescribe[]
+  asyncImport?: ModuleDescribe[]
+}
+
+type Options = ModuleDescribe[];
+```
+
+#### options.name
+模块文件名称
+
+#### options.size
+模块文件尺寸（单位字节）
+
+#### options.syncImport
+静态导入的模块
+
+#### options.asyncImport
+动态导入的模块
+
+## License
+
+[MIT](http://opensource.org/licenses/MIT)
