@@ -3,34 +3,24 @@ import analytics from '../scripts/main'
 analytics({
   modulesStructure: [
     {
-      name: 'app-a',
-      syncImport: [{name: 'lib-o'},],
+      name: 'one',
+      syncImport: [{name: 'A'},{name:"D"}],
       asyncImport: [{
-          name: 'page-h',
-          syncImport: [{name: 'lib-p',}, {name: 'lib-q-hi'}]
+          name: 'B',
+          syncImport: [{name: 'D',}, {name: 'F'}]
         },{
-          name: 'page-i',
-          syncImport: [{name: 'lib-p'}, {name: 'lib-q-hi'}]
-        },{
-          name: 'page-j',
-          syncImport: [{name: 'lib-p'}]
+          name: 'C',
+          syncImport: [{name: 'F'}]
         }
       ]
     },{
-      name: 'app-b',
-      syncImport: [{name: 'lib-p'},]
+      name: 'two',
+      syncImport: [{name: 'A'},]
     }
   ],
   splitChunks:{
-    chunks: "all",
-    maxSize:400,
     cacheGroups:{
-      default:false,
-      hi:{
-        test:/hi/,
-        name:'test'
-      }
-
+      "default":false
     }
   }
 });

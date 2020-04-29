@@ -33,7 +33,7 @@ function getWebpackConfig(options: OptionsDescribe) {
         extensions: ['.js'],
       },
       plugins: [
-        new webpackBundleAnalyzer.BundleAnalyzerPlugin(),
+        //new webpackBundleAnalyzer.BundleAnalyzerPlugin(),
         new CleanWebpackPlugin(),
       ],
       optimization: {
